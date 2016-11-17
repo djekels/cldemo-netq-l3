@@ -63,7 +63,7 @@
   - include: "{{ protocol }}set.yml"
     when: "{{ ansible_lo.ipv4_secondaries is defined }}"
 
-  - include: redis.yml
+- include: redis.yml
 
 - hosts: 'server*'
   vars_files:
