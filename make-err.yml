@@ -1,0 +1,10 @@
+---  
+ - hosts: '!server*'  
+   tasks:  
+     - name: Push make error script  
+       copy: src=make-err.sh dest=/tmp/make-err.sh mode=0755  
+  
+     - name: Execute the make error script  
+       command: /tmp/make-err.sh  
+  
+
