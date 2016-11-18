@@ -2,6 +2,10 @@
 
 This demo repo is to be downloaded onto the oob-mgmt-server of cldemo-vagrant(<https://github.com/CumulusNetworks/cldemo-vagrant>) under 'cumulus' user. It assumes the rest of the network nodes are up and running, but have no configuration on them.
 
+If you had already run a different configuration playbook (for example the vxlan or l2 setup) on this setup, clear out all that using the command:
+
+    ansible-playbook -s reset.yml
+
 To execute the playbook to setup netq, type:
 
     ansible-playbook -s configure.yml
