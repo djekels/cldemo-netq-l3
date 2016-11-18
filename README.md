@@ -20,3 +20,5 @@ Typing 'netq <TAB>' will show you options to try out. Some useful examples to ge
     netq show macs leaf01
     netq show changes between 1s and 2m
     ip route | netq resolve | less -R
+
+If you wish to run this with OSPF unnumbered instead of BGP, just edit the properties.yml file and replace 'bgp' with 'ospf' as the value for 'protocol' keyword. Run reset.yml playbook and configure.yml playbook as described above, and you should have a network configured with OSPF. Please note we don't support OSPF analysis yet in netq.
