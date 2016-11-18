@@ -19,7 +19,7 @@ leaf_to_spine_ports: "swp51 swp52"
 leaf_to_server_ports: "swp[1-2]"
 
 ################### Routing Protocol Used ###########################
-protocol: 'ospf'
+protocol: 'bgp'
 
 ################### SVI and Host IP CONFIGURATION ###################
 lo_ip_subnet: '10.254.0.0/24'
