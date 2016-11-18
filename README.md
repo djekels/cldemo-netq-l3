@@ -1,4 +1,4 @@
-# cldemo-netq
+# cldemo-netq-l3
 
 This demo repo is to be downloaded onto the oob-mgmt-server of cldemo-vagrant(<https://github.com/CumulusNetworks/cldemo-vagrant>) under 'cumulus' user. It assumes the rest of the network nodes are up and running, but have no configuration on them.
 
