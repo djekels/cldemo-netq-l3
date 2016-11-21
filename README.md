@@ -1,18 +1,69 @@
 # cldemo-netq-l3
 
-This demo repo is to be downloaded onto the oob-mgmt-server of cldemo-vagrant(<https://github.com/CumulusNetworks/cldemo-vagrant>) under 'cumulus' user. It assumes the rest of the network nodes are up and running, but have no configuration on them.
+This demo will install Cumulus Linux [NetQ](https://docs.cumulusnetworks.com/display/DOCS/Using+netq+to+Troubleshoot+the+Network) on the Cumulus [reference topology](https://github.com/cumulusnetworks/cldemo-vagrant). Please vist the reference topology github page for detailed instructions on using Cumulus Vx with Vagrant.
 
-If you had already run a different configuration playbook (for example the vxlan or l2 setup) on this setup, clear out all that using the command:
+![https://github.com/CumulusNetworks/cldemo-vagrant/raw/master/cldemo_topology.png]()
 
-    ansible-playbook -s reset.yml
+Quickstart
+------------------------
+* git clone https://github.com/cumulusnetworks/cldemo-vagrant
+* cd cldemo-vagrant
+* vagrant up
+* vagrant ssh oob-mgmt-server
+* sudo su - cumulus
+* git clone https://github.com/CumulusNetworks/cldemo-netq-l3.git
+* cd cldemo-netq-l3
+* ansible-playbook configure.yml
+* ssh leaf01
+* netq
+* netq check bgp
+* netq trace l3 10.1.20.1 from 10.3.20.3
+* ip route | netq resolve | less -R
 
-To execute the playbook to setup netq, type:
+Details
+------------------------
 
-    ansible-playbook -s configure.yml
+This demo will configure a layer 3 BGP network as well as the netq agent and server components. The demo is downloaded onto the `oob-mgmt-server` under the `cumulus` user. It assumes the network is up and running (via `vagrant up`) but it **has not** yet been configured. The playbook `configure.yml` will configure BGP on all spine and leafs as well as install the necessary netq components. Once the netq demo has been configured with `configure.yml` you can log into any node in the network to interact with the netq service. Use the `netq` command to interact with the netq agent.
 
-Once successfully run, you can type 'netq' to see the status of the various nodes. You can also type 'netq' by logging into any of the spine/leaf nodes.
-Hitting TAB after typing 'netq' will show you commands available along with help text. Some useful examples to get you going:
+cumulus@oob-mgmt-server:~/cldemo-netq-l3$ ssh leaf01
 
+    Welcome to Cumulus VX (TM)
+
+    Cumulus VX (TM) is a community supported virtual appliance designed for
+    experiencing, testing and prototyping Cumulus Networks' latest technology.
+    For any questions or technical support, visit our community site at:
+    http://community.cumulusnetworks.com
+    
+    The registered trademark Linux (R) is used pursuant to a sublicense from LMI,
+    the exclusive licensee of Linus Torvalds, owner of the mark on a world-wide
+    basis.
+    Last login: Sun Nov 20 10:15:25 2016 from 192.168.0.254
+    
+    cumulus@leaf01:~$ netq
+    Node Name    Connect Time         Last Connect    Status
+    -----------  -------------------  --------------  --------
+    leaf01       2016-11-20 17:54:02  24 seconds ago  Fresh
+    leaf02       2016-11-20 17:54:02  23 seconds ago  Fresh
+    leaf03       2016-11-20 17:54:02  24 seconds ago  Fresh
+    leaf04       2016-11-20 17:54:02  24 seconds ago  Fresh
+    spine01      2016-11-20 17:54:02  24 seconds ago  Fresh
+    spine02      2016-11-20 17:54:02  22 seconds ago  Fresh```
+
+
+Hitting TAB after typing 'netq' will show you commands available along with help text.
+
+    cumulus@leaf01:~$ netq
+        add      :  Update configuration
+        agent    :  Netq agent
+        check    :  check health of services or correctness of parameter
+        help     :  Show usage info
+        resolve  :  Annotate input with names and interesting info
+        server   :  IP address of DB server
+        show     :  Show fabric-wide info
+        trace    :  Control plane trace path across fabric
+        view     :  Show output of pre-defined commands on specific node```
+
+Some useful examples to get you going
     netq check bgp
     netq check vlan
     netq trace l3 10.1.20.1 from 10.3.20.3
@@ -21,4 +72,8 @@ Hitting TAB after typing 'netq' will show you commands available along with help
     netq show changes between 1s and 2m
     ip route | netq resolve | less -R
 
-If you wish to run this with OSPF unnumbered instead of BGP, just edit the properties.yml file and replace 'bgp' with 'ospf' as the value for 'protocol' keyword. Run reset.yml playbook and configure.yml playbook as described above, and you should have a network configured with OSPF. Please note we don't support OSPF analysis yet in netq.
+Resetting The Topology
+------------------------
+If a previous configuration was applied to the reference topology, it can be reset with the `reset.yml` playbook provided. This can be run before configuring netq to ensure a clean starting state.
+
+    ansible-playbook -s reset.yml
