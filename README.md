@@ -2,7 +2,7 @@
 
 This demo will install Cumulus Linux [NetQ](https://docs.cumulusnetworks.com/display/DOCS/Using+netq+to+Troubleshoot+the+Network) on the Cumulus [reference topology](https://github.com/cumulusnetworks/cldemo-vagrant). Please vist the reference topology github page for detailed instructions on using Cumulus Vx with Vagrant.
 
-![https://github.com/CumulusNetworks/cldemo-vagrant/raw/master/cldemo_topology.png]()
+![Cumulus Reference Topology](https://github.com/CumulusNetworks/cldemo-vagrant/raw/master/cldemo_topology.png)
 
 Quickstart
 ------------------------
