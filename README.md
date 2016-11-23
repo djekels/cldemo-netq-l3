@@ -13,7 +13,7 @@ Quickstart
 * sudo su - cumulus
 * git clone https://github.com/CumulusNetworks/cldemo-netq-l3.git
 * cd cldemo-netq-l3
-* ansible-playbook configure.yml
+* ansible-playbook -s configure.yml
 * ssh leaf01
 * netq
 * netq check bgp
