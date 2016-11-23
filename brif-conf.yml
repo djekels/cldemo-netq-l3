@@ -97,7 +97,7 @@
   # Same applies for spine and exit leaves
   - name: Construct CLAG Backup IP for leaves
     set_fact:
-        clag_peer_ip: |
+        clag_backup_ip: |
           {% if (my_node_id|int % 2) == 1 %}
              {{ hostvars[inventory_hostname.split('f')[0] + 'f' + "%02d"|format(inventory_hostname.split('f')[1]|int + 1)]['ansible_eth0']['ipv4']['address'] }}
           {% else %}
