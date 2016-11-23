@@ -141,7 +141,7 @@
           clagd-peer-ip {{ my_clag_peer_ip|trim }}
           clagd-sys-mac {{ my_clag_sys_mac|trim }}
           clagd-priority {{ my_clag_prio|trim }}
-          clagd-backup-ip {{ clag-backup-ip }}
+          clagd-backup-ip {{ clag_backup_ip }}
           clagd-args --vm
     become: true
     when: "{{ 'leaf' in group_names and dual_attach_hosts }}"
