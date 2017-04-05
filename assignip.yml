@@ -17,7 +17,7 @@
     tags:
       - compute
       - assignip
-      - always      
+      - always
 
   # Split into two separate set facts thanks to how Ansible works
   - name: Get first element of subnet(1)
@@ -118,7 +118,7 @@
   - name: Get loopback IP if already configured
     set_fact:
       my_ip: "{{ ansible_lo.ipv4_secondaries[0].address }}"
-    when: ansible_lo.ipv4_secondaries[0] is defined
+    when: ansible_lo.ipv4_secondaries is defined and ansible_lo.ipv4_secondaries[0] is defined
 
   - debug: msg="{{ my_ip }}"
 
